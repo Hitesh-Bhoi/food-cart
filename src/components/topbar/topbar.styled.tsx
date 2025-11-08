@@ -2,12 +2,22 @@
 import styled from "styled-components";
 
 export const StyledTopbarContainer = styled.div`
-  background-color: aliceblue;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 80px;
   padding-inline: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  transition: all 0.3s ease;
+
+  &.scroll{
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    height: 70px;
+  }
 `;
 export const StyledLogoContainer = styled.div``;
 

@@ -4,12 +4,22 @@ import logo from "../../../public/logo.svg"
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
 import { IoMdLogOut } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Topbar=()=>{
     const [isProfileToggle, setIsProfileToggle] = useState<boolean>(false);
+    const [isScrolled, setIsScrolled] = useState<boolean>(false);
+    
+    useEffect(()=>{
+      const handleScroll=()=>{
+        setIsScrolled(window.scrollY > 10);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    },[])
     return (
       <>
-        <StyledTopbarContainer>
+        <StyledTopbarContainer className={`${isScrolled ? 'scroll' : ''}`}>
           {/* logo */}
           <StyledLogoContainer>
             <Image src={logo} alt="website logo" />
