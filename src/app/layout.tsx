@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Topbar from "@/components/topbar/Topbar";
-import Footer from "@/components/footer/Footer";
+import BaseLayout from "@/components/baseLayout/BaseLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,10 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{margin: '0px'}}>
-      <Topbar/>
-        {children}
-        <Footer/>
+      <body style={{ margin: "0px" }}>
+        <BaseLayout>
+          {children}
+        </BaseLayout>
       </body>
     </html>
   );

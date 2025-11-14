@@ -1,4 +1,28 @@
+/* font style for the whole website fonts */
 body{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
 }
+/* logo size */
+.logo{
+  width: 250px;
+  height: 100px;
+}
+/* splash screen animation start */
+.loader {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: l1 1s linear infinite alternate;
+}
+.loader:before {
+  content: "";
+}
+@keyframes l1 {
+  to {
+    opacity: 0;
+  }
+}
+/* splash screen animation end */
