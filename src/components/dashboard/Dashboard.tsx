@@ -1,10 +1,9 @@
-const Dashboard=()=>{
-    return(
-        <>
-        <div style={{height: '100vh'}}>
-            <h1>Dashboard component</h1>
-        </div>
-        </>
-    )
-}
+import Carousel from "@/micro-components/carousel/Carousel";
+const Dashboard = () => {
+  return (
+    <>
+      <Carousel />
+    </>
+  );
+};
 export default Dashboard;
