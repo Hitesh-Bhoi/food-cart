@@ -1,4 +1,5 @@
 "use client";
+import { FlexBox } from "@/styles/mixins";
 import styled from "styled-components";
 
 export const StyledFeaturedProductContainer = styled.div`
@@ -8,10 +9,7 @@ export const StyledFeaturedProductContainer = styled.div`
 export const StyledFeaturedProductSection = styled.div`
   padding-bottom: 10px;
   .featured-product-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    /* flex-wrap: wrap; */
+    ${FlexBox({ justify: "space-between", gap: "20px" })};
     @media screen and (250px <= width <= 1024px) {
       overflow-x: scroll;
       padding: 15px 10px 15px 10px;
@@ -21,9 +19,7 @@ export const StyledFeaturedProductSection = styled.div`
 `;
 
 export const StyledFeaturedProductHeading = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
+  ${FlexBox({ justify: "space-between", align: "flex-end" })};
   padding-block: 10px;
   .featured-product-title {
     font-size: 14px;
@@ -50,10 +46,7 @@ export const StyledFeaturedProductHeading = styled.div`
 `;
 
 export const StyledFeatureProductCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  ${FlexBox({ direction: "column", justify: "space-between" })}
   width: 250px;
   height: 200px;
   padding: 20px 10px;
@@ -67,13 +60,9 @@ export const StyledFeatureProductCard = styled.div`
   cursor: pointer;
   .product-name-section {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+    ${FlexBox({ justify: "space-between" })};
     .product-name-category {
-      display: flex;
-      flex-direction: column;
+      ${FlexBox({ direction: "column" })};
       .product-category {
         text-transform: capitalize;
         font-size: 14px;
@@ -84,9 +73,7 @@ export const StyledFeatureProductCard = styled.div`
       }
     }
     .product-rating {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
+      ${FlexBox({ align: "flex-end", gap: "2px" })};
       svg {
         display: block;
       }
@@ -97,20 +84,14 @@ export const StyledFeatureProductCard = styled.div`
     height: 130px;
   }
   .product-price-and-unit {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
+    ${FlexBox({ direction: "column" })};
   }
   .product-details {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    ${FlexBox({ justify: "space-between" })};
     padding-top: 8px;
     .cart-btn {
-      display: flex;
-      align-items: center;
-      gap: 2px;
+      ${FlexBox({ gap: "2px" })};
       color: #20b820;
       background-color: #dde2dd;
       border: none;
@@ -119,7 +100,6 @@ export const StyledFeatureProductCard = styled.div`
     }
     .product-price {
       font-size: 18px;
-      /* color: var(--green); */
     }
     .product-unit {
       text-transform: capitalize;
