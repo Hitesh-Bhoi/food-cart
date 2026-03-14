@@ -8,6 +8,11 @@ body {
   font-weight: 600;
 }
 
+p {
+  padding: 0px;
+  margin: 0px;
+}
+
 .remove-default-margin {
   margin: 0px;
 }
@@ -24,7 +29,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
   animation: l1 1s linear infinite alternate;
 }
 

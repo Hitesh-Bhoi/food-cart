@@ -2,21 +2,35 @@
 import styled from "styled-components";
 
 export const StyledTopbarContainer = styled.div`
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
+  /* background-color: white;
+  display: none;
   padding-inline: 10px;
   position: sticky;
   top: 0;
   z-index: 999;
-  transition: all 0.3s ease;
-
+  transition: all 0.3s ease; */
+  /* background-color: white; */
+  padding-inline: 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 0px;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  /* transition: transform 0.7s ease, opacity 0.4s ease; */
+  
   &.scroll {
     background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     height: 70px;
+    transform: translateY(0);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   /* mobile screen */

@@ -15,7 +15,7 @@ const Topbar=()=>{
     
     useEffect(()=>{
       const handleScroll=()=>{
-        setIsScrolled(window.scrollY > 10);
+        setIsScrolled(window.scrollY > 300);
       };
 
       window.addEventListener("scroll", handleScroll);
