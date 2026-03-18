@@ -4,6 +4,10 @@ import styled from "styled-components";
 export const StyledDiscountCardContainer = styled.div`
     ${FlexBox({ justify: "space-between" })};
     background-color: var(--green);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(50, 100, 50, 0.4)), url("https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin-block: 50px;
     margin-inline: 20px;
     padding: 25px;
@@ -14,7 +18,7 @@ export const StyledDiscountCardContainer = styled.div`
         margin: 6px;
         padding: 20px;
     }
-    `;
+`;
 export const StyledDiscountSection = styled.div`
     width: 50%;
     ${FlexBox({ direction: "column", justify: "start", align: "start", gap: "25px" })};
