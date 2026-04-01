@@ -33,23 +33,27 @@ export const StyledTopbarContainer = styled.div`
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
-  /* mobile screen */
+  /* mobile / tablet screen */
   @media (max-width: 1024px) {
-    position: static;
+    position: fixed;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    height: 40px;
+
     &.scroll {
-        height: 40px;
-      }
+      height: 60px;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
     &.active {
-      height: 400px;
-      &.scroll {
-        height: 400px;
-      }
+      height: auto;
+      opacity: 1;
+      transform: translateY(0);
+      background-color: white;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      padding-bottom: 16px;
     }
   }
 `;
@@ -105,35 +109,36 @@ export const StyledNavbarContainer = styled.div`
   }
 
   @media (max-width: 1024px) {
-    position: absolute;
-    top: -100px;
-    transform: translateY(-100px);
+    position: relative;
+    width: 100%;
+    top: auto;
     opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    height: 0;
+    overflow: hidden;
+    transform: none;
+    transition: opacity 0.3s ease, height 0.3s ease;
     pointer-events: none;
 
     &.active {
-      left: 0;
-      right: 0;
-      top: 50px;
-      width: 100%;
-      transform: translateY(10px);
+      height: auto;
+      overflow: visible;
       opacity: 1;
-      transition: opacity 0.3s ease, transform 0.3s ease;
       pointer-events: auto;
+      transition: opacity 0.3s ease;
 
       ul {
         flex-direction: column;
-        margin-top: 20px;
-        padding: 0px;
-        gap: 10px;
+        margin-top: 16px;
+        padding: 0;
+        gap: 8px;
 
         .show-on-mobile {
           display: block;
         }
       }
+
       li {
-        width: 200px;
+        width: 220px;
         text-align: center;
       }
     }
@@ -154,24 +159,82 @@ export const StyledProfileContainer = styled.div`
   }
 `;
 
+export const StyledRightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+export const StyledCartButton = styled.button`
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(32, 184, 32, 0.1);
+  }
+
+  .cart-icon {
+    font-size: 26px;
+    color: #333;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 18px;
+    height: 18px;
+    background: #20b820;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+`;
+
 export const StyledUserProfile = styled.div`
   .profile-icon {
-    font-size: 38px;
+    font-size: 32px;
     cursor: pointer;
+    color: #333;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #20b820;
+    }
   }
 `;
 
 export const StyledProfileMenu = styled.div`
   position: absolute;
-  top: 45px;
+  top: 50px;
   right: 0;
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
-  width: 140px;
-  background-color: #20b820;
-  border-radius: 8px;
+  width: 180px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border: 1px solid #e8eaed;
+  overflow: hidden;
   &.active {
     opacity: 1;
     transform: translateY(0px);
@@ -180,19 +243,40 @@ export const StyledProfileMenu = styled.div`
 `;
 
 export const StyledProfileOption = styled.p`
-  padding: 8px 12px;
+  padding: 11px 14px;
   margin: 0px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 4px;
-  border-bottom: 1px solid white;
-  color: white;
+  gap: 10px;
+  border-bottom: 1px solid #f0f2f4;
+  color: #333;
   cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(32, 184, 32, 0.08);
+    color: #20b820;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.logout {
+    color: #e53935;
+    &:hover {
+      background: rgba(229, 57, 53, 0.06);
+      color: #e53935;
+    }
+  }
+
   span {
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 600;
   }
   .profile-option-icon {
-    font-size: 24px;
+    font-size: 18px;
+    flex-shrink: 0;
   }
 `;

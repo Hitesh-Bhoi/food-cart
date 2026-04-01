@@ -45,8 +45,8 @@ const Footer = () => {
             <div className="footer-child-div">
             <StyledAddressSection>
               <Image src={location} alt="address icon" width={20} height={20} />
-              <span className="footer-text">
-                Address 5171 W Champbell Ave Kent, Utah 53127 United States
+              <span>
+                Address: 5th Floor, Bandra-Kurla Complex, Mumbai, MH 400051
               </span>
             </StyledAddressSection>
             <StyledContactSection>
@@ -111,13 +111,13 @@ const Footer = () => {
           </StyledCorporateInfo>
           <StyledPopularProductInfo>
             <p className="title">Popular</p>
-            <span>Milk & Flavoured Milk</span>
-            <span>Butter and Margarine</span>
-            <span>Eggs Substitutes</span>
-            <span>Marmalades</span>
-            <span>Sour Cream and Dips</span>
-            <span>Tea & Kombucha</span>
-            <span>Cheese</span>
+            <span>Fresh Fruits</span>
+            <span>Seasonal Vegetables</span>
+            <span>Organic Produce</span>
+            <span>Exotic Fruits</span>
+            <span>Leafy Greens</span>
+            <span>Root Vegetables</span>
+            <span>Herbs &amp; Garnishes</span>
           </StyledPopularProductInfo>
           </div>
           <StyledInstallAppInfo>

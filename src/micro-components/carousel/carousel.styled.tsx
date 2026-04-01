@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+/* ── slide-in animation ──────────────────────────────────── */
+const slideUp = keyframes`
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
 
 export const CarouselWrapper = styled.div`
   position: relative;
@@ -11,7 +17,6 @@ export const CarouselInner = styled.div`
   height: 100vh;
   min-height: 560px;
   overflow: hidden;
-  /* border-radius: 26px; */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
 
   @media (min-width: 768px) {
@@ -28,8 +33,8 @@ export const CarouselItem = styled.div<{ $bg: string }>`
   width: 100%;
   height: 100%;
   opacity: 0;
-  transform: scale(1.02);
-  transition: opacity 0.7s ease, transform 0.9s ease;
+  transform: scale(1.04);
+  transition: opacity 0.8s ease, transform 1.1s ease;
   background-image: url(${({ $bg }) => $bg});
   background-size: cover;
   background-position: center;
@@ -38,6 +43,17 @@ export const CarouselItem = styled.div<{ $bg: string }>`
     opacity: 1;
     transform: scale(1);
     z-index: 1;
+
+    /* animate content on active */
+    .carousel_tag,
+    .carousel_title,
+    .carousel_description,
+    .carousel_buttons {
+      animation: ${slideUp} 0.65s ease forwards;
+    }
+    .carousel_title       { animation-delay: 0.05s; }
+    .carousel_description { animation-delay: 0.12s; }
+    .carousel_buttons     { animation-delay: 0.2s; }
   }
 
   &::before {
@@ -46,9 +62,9 @@ export const CarouselItem = styled.div<{ $bg: string }>`
     inset: 0;
     background: linear-gradient(
       110deg,
-      rgba(0, 0, 0, 0.65) 0%,
-      rgba(0, 0, 0, 0.35) 45%,
-      rgba(0, 0, 0, 0) 70%
+      rgba(0, 0, 0, 0.68) 0%,
+      rgba(0, 0, 0, 0.38) 45%,
+      rgba(0, 0, 0, 0) 72%
     );
   }
 `;
@@ -59,115 +75,134 @@ export const CarouselContent = styled.div`
   left: 8%;
   transform: translateY(-50%);
   color: white;
-  max-width: 520px;
+  max-width: 540px;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 
   .carousel_tag {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     width: max-content;
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 999px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: rgba(32, 184, 32, 0.25);
+    border: 1px solid rgba(32, 184, 32, 0.55);
     font-size: 12px;
-    letter-spacing: 0.18em;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
+    color: #b2f0b2;
+    opacity: 0;
   }
 
   .carousel_title {
-    font-size: clamp(28px, 4vw, 56px);
-    line-height: 1.05;
+    font-size: clamp(30px, 4.5vw, 62px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    opacity: 0;
   }
+
   .carousel_description {
     font-size: clamp(14px, 1.6vw, 18px);
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
     max-width: 420px;
+    font-weight: 400;
+    opacity: 0;
   }
+
   .carousel_buttons {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    opacity: 0;
 
     button {
-      padding: 12px 20px;
+      padding: 14px 28px;
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 700;
       transition: transform 0.2s ease, box-shadow 0.2s ease,
-        background-color 0.2s ease, color 0.2s ease;
+        background-color 0.2s ease;
     }
 
     .button1 {
       background-color: var(--green);
       color: white;
-      box-shadow: 0 12px 24px rgba(32, 184, 32, 0.3);
+      box-shadow: 0 12px 28px rgba(32, 184, 32, 0.35);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(32, 184, 32, 0.45);
+      }
     }
-    .button1:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 28px rgba(32, 184, 32, 0.4);
-    }
+
     .button2 {
       background-color: rgba(255, 255, 255, 0.15);
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(6px);
-    }
-    .button2:hover {
-      background-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-1px);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.28);
+        transform: translateY(-2px);
+      }
     }
   }
+
   @media (max-width: 768px) {
-    left: 6%;
-    right: 6%;
-    transform: translateY(-50%);
+    left: 5%;
+    right: 5%;
+    gap: 12px;
   }
 `;
 
+/* ── indicators ─────────────────────────────────────────── */
 export const Indicators = styled.div`
   position: absolute;
   z-index: 30;
   display: flex;
-  gap: 0.75rem;
-  bottom: 1.25rem;
+  gap: 8px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
 `;
 
 export const IndicatorButton = styled.button`
-  width: 0.75rem;
-  height: 0.75rem;
+  height: 8px;
+  width: 8px;
   border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.55);
-  outline: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.45);
   border: none;
   cursor: pointer;
+  transition: width 0.35s ease, background-color 0.25s ease;
+  padding: 0;
 
   &[aria-current="true"] {
-    background-color: white;
+    width: 28px;
+    background-color: var(--green);
   }
 `;
 
-export const ControlButton = styled.button`
+/* ── arrow controls ─────────────────────────────────────── */
+const ControlButton = styled.button`
   position: absolute;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 30;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 0 1rem;
+  padding: 0 16px;
   cursor: pointer;
   background: transparent;
   border: none;
-  `;
+`;
 
 export const PrevButton = styled(ControlButton)`
   left: 0;
@@ -181,21 +216,27 @@ export const ControlIconWrapper = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.38);
+    transform: scale(1.08);
+  }
+
+  @media (max-width: 640px) {
+    width: 36px;
+    height: 36px;
   }
 `;
 
 export const ControlIcon = styled.svg`
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
   color: white;
 `;

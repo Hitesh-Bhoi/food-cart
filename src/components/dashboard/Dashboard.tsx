@@ -24,11 +24,11 @@ const Dashboard = () => {
         <div className="news-letter-container">
           <NewseLetter/>
         </div>
-        <div className="contact-us-container">
-          <ContactUs/>
-        </div>
         <div className="faq-container">
           <FAQ/>
+        </div>
+        <div className="contact-us-container">
+          <ContactUs/>
         </div>
       </div>
     </>
