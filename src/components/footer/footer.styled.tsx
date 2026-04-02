@@ -12,16 +12,24 @@ export const StyleFooterInfoDetails = styled.div`
   ${FlexBox ({ justify: "space-between", align: "flex-start" })}
 
   @media (max-width: 767px) {
-    ${FlexBox ({ direction: "column" })};
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px 0;
   }
 
   @media ((min-width: 768px) and (max-width: 1023px)) {
     width: 100%;
-    ${FlexBox ({ direction: "column", gap: "20px" })};
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px 0;
   }
 `;
 export const StyledLogoWithInfo = styled.div`
-  width: 40%;
+  width: 25%;
   ${FlexBox ({ direction: "column", justify: "flex-start", align: "flex-start", gap: "15px" })};
   @media (max-width: 767px) {
     width: 100%;
@@ -30,64 +38,59 @@ export const StyledLogoWithInfo = styled.div`
   }
 
   @media ((min-width: 768px) and (max-width: 1023px)) {
-    width: 70%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
   }
 `;
 export const StyledCompanyInfo = styled.div`
-  width: 100%;
+  width: auto;
   ${FlexBox ({ direction: "column", justify: "flex-start", align: "flex-start", gap: "15px" })};
 
-  @media (max-width: 767px) {
-    width: 100%;
-    /* ${FlexBox ({ direction: "column" })}; */
-    justify-content: center;
+  @media (max-width: 1023px) {
+    width: 45%;
     align-items: center;
-    padding-bottom: 20px;
   }
 `;
 export const StyledAccountInfo = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
 
-  @media (max-width: 767px) {
-    width: 100%;
-    justify-content: center;
+  @media (max-width: 1023px) {
+    width: 45%;
     align-items: center;
-    padding-bottom: 20px;
   }
 `;
 export const StyledCorporateInfo = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
 
-  @media (max-width: 767px) {
-    width: 100%;
-    justify-content: center;
+  @media (max-width: 1023px) {
+    width: 45%;
     align-items: center;
-    padding-bottom: 20px;
   }
 `;
 export const StyledPopularProductInfo = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
 
-  @media (max-width: 767px) {
-    width: 100%;
-    justify-content: center;
+  @media (max-width: 1023px) {
+    width: 45%;
     align-items: center;
-    padding-bottom: 20px;
   }
 `;
 export const StyledInstallAppInfo = styled.div`

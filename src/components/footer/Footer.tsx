@@ -5,10 +5,6 @@ import location from "../../../public/icons/location.svg";
 import headphone from "../../../public/icons/headphone.svg";
 import email from "../../../public/icons/email.svg";
 import clock from "../../../public/icons/clock.svg";
-import appStore from "../../../public/images/apple-appstore.png"
-import playStore from "../../../public/images/google-playstore.png"
-import mastercard from "../../../public/icons/mastercard.svg"
-import UPI from "../../../public/icons/upi.svg"
 import {
   StyledAccountInfo,
   StyledAddressSection,
@@ -18,7 +14,7 @@ import {
   StyledEmailSection,
   // StyledFollowusInfo,
   StyledFooterContainer,
-  StyledInstallAppInfo,
+  // StyledInstallAppInfo,
   // StyledLogoSection,
   StyledLogoWithInfo,
   // StyledPaymentsLink,
@@ -37,7 +33,6 @@ const Footer = () => {
     <>
       <StyledFooterContainer>
         <StyleFooterInfoDetails>
-          <div className="first-tab-size-div">
           <StyledLogoWithInfo>
             <div>
               <Image src={logo} alt="website logo" />
@@ -46,7 +41,7 @@ const Footer = () => {
             <StyledAddressSection>
               <Image src={location} alt="address icon" width={20} height={20} />
               <span>
-                Address: 5th Floor, Bandra-Kurla Complex, Mumbai, MH 400051
+                Address: Ahmedabad, Gujarat, India
               </span>
             </StyledAddressSection>
             <StyledContactSection>
@@ -58,7 +53,7 @@ const Footer = () => {
               />
               <span>
                 Call Us{" "}
-                <span className="contact-number">(+91)-540-025-124553</span>
+                <span className="contact-number">(+91)-8200861893</span>
               </span>
             </StyledContactSection>
             </div>
@@ -75,7 +70,6 @@ const Footer = () => {
             </StyledEmailSection>
             </div>
           </StyledLogoWithInfo>
-          <div className="combine-footer-div">
           <StyledCompanyInfo>
             <p className="title">Company</p>
             <span>About Us</span>
@@ -95,10 +89,6 @@ const Footer = () => {
             <span>Shipping Details</span>
             <span>Compare Products</span>
           </StyledAccountInfo>
-          </div>
-          </div>
-          <div className="second-tab-size-div">
-          <div className="combine-footer-div">
           <StyledCorporateInfo>
             <p className="title">Corporate</p>
             <span>Become a Vendor</span>
@@ -119,23 +109,6 @@ const Footer = () => {
             <span>Root Vegetables</span>
             <span>Herbs &amp; Garnishes</span>
           </StyledPopularProductInfo>
-          </div>
-          <StyledInstallAppInfo>
-            <p className="title">
-                Install App
-            </p>
-            <span>From App Store or Google Play</span>
-            <div>
-                <Image src={appStore} alt="app store link" width={100} height={45}/>
-                <Image src={playStore} alt="play store link" width={100} height={45}/>
-            </div>
-            <span>Secure Payment Gatways</span>
-            <div>
-                <Image src={mastercard} alt="mastercard link" width={100} height={50}/>
-                <Image src={UPI} alt="UPI link" width={100} height={45}/>
-            </div>
-          </StyledInstallAppInfo>
-          </div>
         </StyleFooterInfoDetails>
 
         {/* <StyleFooterContactDetails> */}
