@@ -25,103 +25,86 @@ export const StyleFooterInfoDetails = styled.div`
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(25,155,25,0.12);
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 32px;
+  @media (max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px 0;
   }
 
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  @media (max-width: 400px) {
-    grid-template-columns: 1fr;
+  @media ((min-width: 768px) and (max-width: 1023px)) {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px 0;
   }
 `;
 
 /* ─── logo + contact column ──────────────────────────────────────────────── */
 export const StyledLogoWithInfo = styled.div`
-  ${FlexBox({ direction: "column", justify: "flex-start", align: "flex-start", gap: "20px" })};
-
-  .brand-tagline {
-    font-size: 14px;
-    font-weight: 400;
-    color: #6b7280;
-    line-height: 1.65;
-    max-width: 240px;
-    margin: 0;
-  }
-
-  .footer-child-div {
-    ${FlexBox({ direction: "column", align: "flex-start", gap: "12px" })};
+  width: 25%;
+  ${FlexBox ({ direction: "column", justify: "flex-start", align: "flex-start", gap: "15px" })};
+  @media (max-width: 767px) {
     width: 100%;
   }
 
-  @media (max-width: 1024px) {
-    grid-column: 1 / -1;
+  @media ((min-width: 768px) and (max-width: 1023px)) {
+    width: 100%;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  @media (max-width: 640px) {
-    grid-column: 1 / -1;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
   }
 `;
+export const StyledCompanyInfo = styled.div`
+  width: auto;
+  ${FlexBox ({ direction: "column", justify: "flex-start", align: "flex-start", gap: "15px" })};
 
-export const StyledAddressSection = styled.div`
-  ${FlexBox({ justify: "flex-start", align: "center", gap: "10px" })};
-
-  img { opacity: 0.7; flex-shrink: 0; }
-
-  span {
-    font-size: 13px;
-    font-weight: 400;
-    color: #6b7280;
-    line-height: 1.5;
+  @media (max-width: 1023px) {
+    width: 45%;
+    align-items: center;
   }
 `;
+export const StyledAccountInfo = styled.div`
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
 
-export const StyledContactSection = styled.div`
-  ${FlexBox({ justify: "flex-start", align: "center", gap: "10px" })};
-
-  img { opacity: 0.7; flex-shrink: 0; }
-
-  span {
-    font-size: 13px;
-    font-weight: 400;
-    color: #6b7280;
-  }
-
-  .contact-number {
-    color: ${green};
-    font-weight: 600;
+  @media (max-width: 1023px) {
+    width: 45%;
+    align-items: center;
   }
 `;
+export const StyledCorporateInfo = styled.div`
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
 
-export const StyledEmailSection = styled.div`
-  ${FlexBox({ justify: "flex-start", align: "center", gap: "10px" })};
-
-  img { opacity: 0.7; flex-shrink: 0; }
-
-  span, p {
-    font-size: 13px;
-    font-weight: 400;
-    color: #6b7280;
-    margin: 0;
-    line-height: 1.5;
+  @media (max-width: 1023px) {
+    width: 45%;
+    align-items: center;
   }
+`;
+export const StyledPopularProductInfo = styled.div`
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
 
-  .email-box {
-    ${FlexBox({ justify: "flex-start", gap: "4px" })};
-    flex-wrap: wrap;
-  }
-
-  .email {
-    color: ${green};
-    font-weight: 600;
+  @media (max-width: 1023px) {
+    width: 45%;
+    align-items: center;
   }
 `;
 

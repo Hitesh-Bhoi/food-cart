@@ -5,10 +5,6 @@ import location from "../../../public/icons/location.svg";
 import headphone from "../../../public/icons/headphone.svg";
 import email from "../../../public/icons/email.svg";
 import clock from "../../../public/icons/clock.svg";
-import appStore from "../../../public/images/apple-appstore.png"
-import playStore from "../../../public/images/google-playstore.png"
-import mastercard from "../../../public/icons/mastercard.svg"
-import UPI from "../../../public/icons/upi.svg"
 import {
   StyledAccountInfo,
   StyledAddressSection,
@@ -18,6 +14,8 @@ import {
   StyledEmailSection,
   StyledFooterBottom,
   StyledFooterContainer,
+  // StyledInstallAppInfo,
+  // StyledLogoSection,
   StyledLogoWithInfo,
   StyledPopularProductInfo,
   StyleFooterInfoDetails,
@@ -28,14 +26,30 @@ const Footer = () => {
     <>
       <StyledFooterContainer>
         <StyleFooterInfoDetails>
-
-          {/* ── brand + contact ── */}
           <StyledLogoWithInfo>
-            <Image src={logo} alt="Ecobazar logo" width={140} />
-            <p className="brand-tagline">
-              Fresh groceries, unbeatable prices, and quick delivery — straight
-              from local farms to your doorstep.
-            </p>
+            <div>
+              <Image src={logo} alt="website logo" />
+            </div>
+            <div className="footer-child-div">
+            <StyledAddressSection>
+              <Image src={location} alt="address icon" width={20} height={20} />
+              <span>
+                Address: Ahmedabad, Gujarat, India
+              </span>
+            </StyledAddressSection>
+            <StyledContactSection>
+              <Image
+                src={headphone}
+                alt="headphone icon"
+                width={20}
+                height={20}
+              />
+              <span>
+                Call Us{" "}
+                <span className="contact-number">(+91)-8200861893</span>
+              </span>
+            </StyledContactSection>
+            </div>
             <div className="footer-child-div">
               <StyledAddressSection>
                 <Image src={location} alt="location" width={16} height={16} />
@@ -61,8 +75,6 @@ const Footer = () => {
               </StyledEmailSection>
             </div>
           </StyledLogoWithInfo>
-
-          {/* ── company ── */}
           <StyledCompanyInfo>
             <p className="title">Company</p>
             <span>About Us</span>
@@ -84,8 +96,6 @@ const Footer = () => {
             <span>Shipping Details</span>
             <span>Compare Products</span>
           </StyledAccountInfo>
-
-          {/* ── corporate ── */}
           <StyledCorporateInfo>
             <p className="title">Corporate</p>
             <span>Become a Vendor</span>
@@ -108,7 +118,6 @@ const Footer = () => {
             <span>Root Vegetables</span>
             <span>Herbs &amp; Garnishes</span>
           </StyledPopularProductInfo>
-
         </StyleFooterInfoDetails>
 
         {/* ── bottom bar ── */}
