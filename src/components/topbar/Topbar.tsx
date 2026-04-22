@@ -17,6 +17,7 @@ import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
 import { IoMdLogOut } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { RxCross1 } from "react-icons/rx";
 import {
   HiMiniBars3,
@@ -33,9 +34,14 @@ const Topbar = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isNavbarShow, setIsNavbarShow] = useState<boolean>(false);
   const profileRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   const { totalItems } = useCart();
   const cartCount = totalItems;
+
+  // On non-dashboard pages, the topbar should always be visible
+  const isDashboard = pathname === "/dashboard";
+  const shouldShowTopbar = !isDashboard || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +65,7 @@ const Topbar = () => {
   return (
     <>
       <StyledTopbarContainer
-        className={`${isScrolled ? "scroll" : ""} ${isNavbarShow ? "active" : ""}`}
+        className={`${shouldShowTopbar ? "scroll" : ""} ${isNavbarShow ? "active" : ""}`}
       >
         {/* logo */}
         <StyledLogoContainer>
@@ -82,17 +88,17 @@ const Topbar = () => {
         {/* navbar */}
         <StyledNavbarContainer className={`${isNavbarShow ? "active" : ""}`}>
           <ul>
-            <li>Home</li>
-            <li>Shop Now</li>
-            <li>Special Offers</li>
-            <li>Fresh Produce</li>
-            <li>Track Order</li>
+            <li><Link href="/dashboard">Home</Link></li>
+            <li><Link href="/products">Shop Now</Link></li>
+            <li><Link href="/cart">Special Offers</Link></li>
+            <li><Link href="/products">Fresh Produce</Link></li>
+            <li><Link href="/orders">Track Order</Link></li>
             {/* mobile-only items */}
-            <li className="show-on-mobile">My Cart</li>
-            <li className="show-on-mobile">My Orders</li>
-            <li className="show-on-mobile">My Wishlist</li>
-            <li className="show-on-mobile">My Profile</li>
-            <li className="show-on-mobile">Logout</li>
+            <li className="show-on-mobile"><Link href="/cart">My Cart</Link></li>
+            <li className="show-on-mobile"><Link href="/orders">My Orders</Link></li>
+            <li className="show-on-mobile"><Link href="/wishlist">My Wishlist</Link></li>
+            <li className="show-on-mobile"><Link href="/profile">My Profile</Link></li>
+            <li className="show-on-mobile"><Link href="/logout">Logout</Link></li>
           </ul>
         </StyledNavbarContainer>
 

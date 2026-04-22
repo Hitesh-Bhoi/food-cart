@@ -96,6 +96,12 @@ export const StyledNavbarContainer = styled.div`
       border-radius: 20px;
       word-wrap: nowrap;
       transition: 0.4s ease-in-out;
+      cursor: pointer;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     }
 
     li:hover {
