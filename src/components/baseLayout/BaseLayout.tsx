@@ -6,11 +6,16 @@ import Footer from "../footer/Footer";
 import Splash from "../splash/Splash";
 import { useRouter } from "next/navigation";
 
+// Routes that should NOT render Topbar / Footer (auth pages)
+const AUTH_ROUTES = ["/login", "/register"];
+
 const BaseLayout = ({ children }: any) => {
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
   const [showSplash, setShowSplash] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  const isAuthPage = AUTH_ROUTES.includes(pathname);
 
   /**
    * Make proper hook and return content order to avoid hydration issue
@@ -45,6 +50,11 @@ const BaseLayout = ({ children }: any) => {
 
   if (showSplash) {
     return <Splash />;
+  }
+
+  // Auth pages render without Topbar / Footer
+  if (isAuthPage) {
+    return <>{children}</>;
   }
 
   return (
