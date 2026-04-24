@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import BaseLayout from "@/components/baseLayout/BaseLayout";
-import { CartProvider } from "@/context/CartContext";
+import { ReduxProvider } from "@/redux/ReduxProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,12 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body style={{ margin: "0px" }}>
-        <CartProvider>
+        <ReduxProvider>
           <BaseLayout>
             {children}
           </BaseLayout>
-        </CartProvider>
+        </ReduxProvider>
       </body>
+
     </html>
   );
 }
