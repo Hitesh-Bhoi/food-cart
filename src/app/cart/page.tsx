@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { useCart } from "@/context/CartContext";
+import { useSelector, useDispatch } from "react-redux";
+import { updateQuantity, removeFromCart, clearCart } from "@/redux/cartSlice";
+import { RootState } from "@/redux/store";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { HiOutlineShoppingCart, HiOutlineArrowLeft, HiOutlineShoppingBag } from "react-icons/hi2";
-import { HiOutlineTruck, HiOutlineLockClosed, HiOutlineShieldCheck } from "react-icons/hi2";
+import { HiOutlineTruck, HiOutlineLockClosed, HiOutlineShieldCheck, HiOutlineCheckCircle } from "react-icons/hi2";
 import {
   CartHeader,
   CartContainer,
@@ -17,18 +19,42 @@ import {
   CartSummary,
   CouponSection,
   EmptyCart,
+  PaymentMethod,
+  SuccessContainer,
 } from "./cart.styled";
 
 export default function CartPage() {
-  const { cartItems, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const totalItems = cartItems.length;
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const [couponCode, setCouponCode] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const TAX_RATE = 0.05; // 5% GST
   const taxAmount = totalPrice * TAX_RATE;
   const finalTotal = totalPrice + taxAmount;
 
   const handleCheckout = () => {
-    alert("Proceeding to checkout with " + cartItems.length + " items!");
+    const orderDetails = {
+      cartItems,
+      totalItems,
+      totalPrice,
+      taxAmount,
+      finalTotal,
+      couponCode,
+      paymentMethod: "cod" // Hardcoded as per the UI
+    };
+    console.log('Order Values:', orderDetails);
+    
+    setIsProcessing(true);
+    // Simulate order processing delay
+    setTimeout(() => {
+      setIsProcessing(false);
+      setIsSuccess(true);
+      dispatch(clearCart());
+    }, 1200);
   };
 
   const handleApplyCoupon = () => {
@@ -37,6 +63,37 @@ export default function CartPage() {
       setCouponCode("");
     }
   };
+
+  if (isSuccess) {
+    return (
+      <>
+        <CartHeader>
+          <CartTitle>
+            <div className="title-left">
+              <HiOutlineShieldCheck className="cart-heading-icon" />
+              <h1>Order Confirmed</h1>
+            </div>
+          </CartTitle>
+        </CartHeader>
+        <CartContainer>
+          <SuccessContainer>
+            <div className="success-icon-wrapper">
+              <HiOutlineCheckCircle className="success-icon" />
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p>
+              Your order has been confirmed. You will pay via Cash on Delivery when the order arrives. 
+              Thank you for shopping with us!
+            </p>
+            <div className="action-buttons">
+              <Link href="/dashboard">Continue Shopping</Link>
+              <button onClick={() => setIsSuccess(false)}>View Details</button>
+            </div>
+          </SuccessContainer>
+        </CartContainer>
+      </>
+    );
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -108,14 +165,14 @@ export default function CartPage() {
                 <ItemActions>
                   <div className="quantity-controls">
                     <button
-                      onClick={() => updateQuantity(item.name, item.quantity - 1)}
+                      onClick={() => dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }))}
                       aria-label="Decrease quantity"
                     >
                       −
                     </button>
                     <span>{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.name, item.quantity + 1)}
+                      onClick={() => dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }))}
                       aria-label="Increase quantity"
                     >
                       +
@@ -124,7 +181,7 @@ export default function CartPage() {
                   <div className="price">₹{(item.price * item.quantity).toFixed(2)}</div>
                   <button
                     className="remove-btn"
-                    onClick={() => removeFromCart(item.name)}
+                    onClick={() => dispatch(removeFromCart(item.name))}
                     aria-label="Remove item"
                     title="Remove from cart"
                   >
@@ -177,8 +234,23 @@ export default function CartPage() {
               <span>₹{finalTotal.toFixed(2)}</span>
             </div>
 
-            <button className="checkout-btn" onClick={handleCheckout}>
-              Proceed to Checkout
+            <PaymentMethod>
+              <h3>Payment Method</h3>
+              <label className="method-option">
+                <input type="radio" name="payment" value="cod" defaultChecked />
+                <div className="method-details">
+                  <span className="method-name">Cash on Delivery (COD)</span>
+                  <span className="method-desc">Pay when your order arrives</span>
+                </div>
+              </label>
+            </PaymentMethod>
+
+            <button 
+              className="checkout-btn" 
+              onClick={handleCheckout}
+              disabled={isProcessing}
+            >
+              {isProcessing ? "Processing..." : "Place Order"}
             </button>
 
             <div className="secure-badge">
