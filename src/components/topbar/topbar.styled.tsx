@@ -104,7 +104,8 @@ export const StyledNavbarContainer = styled.div`
       }
     }
 
-    li:hover {
+    li:hover,
+    li.active {
       color: white;
       background-color: #20b820;
     }
@@ -187,13 +188,18 @@ export const StyledCartButton = styled.button`
   border-radius: 8px;
   transition: background 0.2s;
 
-  &:hover {
+  &:hover,
+  &.active {
     background: rgba(32, 184, 32, 0.1);
+    .cart-icon {
+      color: #20b820;
+    }
   }
 
   .cart-icon {
     font-size: 26px;
     color: #333;
+    transition: color 0.2s;
   }
 
   .cart-badge {
@@ -221,7 +227,8 @@ export const StyledUserProfile = styled.div`
     color: #333;
     transition: color 0.2s;
 
-    &:hover {
+    &:hover,
+    &.active {
       color: #20b820;
     }
   }
@@ -258,9 +265,10 @@ export const StyledProfileOption = styled.p`
   border-bottom: 1px solid #f0f2f4;
   color: #333;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.15s;
 
-  &:hover {
+  &:hover,
+  &.active {
     background: rgba(32, 184, 32, 0.08);
     color: #20b820;
   }

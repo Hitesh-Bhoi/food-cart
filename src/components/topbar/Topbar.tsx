@@ -27,8 +27,8 @@ import {
   HiOutlineUser,
 } from "react-icons/hi2";
 
-import { useCart } from "@/context/CartContext";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const Topbar = () => {
   const [isProfileToggle, setIsProfileToggle] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -36,8 +36,8 @@ const Topbar = () => {
   const profileRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  const { totalItems } = useCart();
-  const cartCount = totalItems;
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const cartCount = cartItems.length;
 
   // On non-dashboard pages, the topbar should always be visible
   const isDashboard = pathname === "/dashboard";
@@ -88,17 +88,37 @@ const Topbar = () => {
         {/* navbar */}
         <StyledNavbarContainer className={`${isNavbarShow ? "active" : ""}`}>
           <ul>
-            <li><Link href="/dashboard">Home</Link></li>
-            <li><Link href="/products">Shop Now</Link></li>
-            <li><Link href="/cart">Special Offers</Link></li>
-            <li><Link href="/products">Fresh Produce</Link></li>
-            <li><Link href="/orders">Track Order</Link></li>
+            <li className={pathname === "/dashboard" ? "active" : ""}>
+              <Link href="/dashboard">Home</Link>
+            </li>
+            <li className={pathname === "/products" ? "active" : ""}>
+              <Link href="/products">Shop Now</Link>
+            </li>
+            <li className={pathname === "/cart" ? "active" : ""}>
+              <Link href="/cart">Special Offers</Link>
+            </li>
+            <li className={pathname === "/products" ? "active" : ""}>
+              <Link href="/products">Fresh Produce</Link>
+            </li>
+            <li className={pathname === "/orders" ? "active" : ""}>
+              <Link href="/orders">Track Order</Link>
+            </li>
             {/* mobile-only items */}
-            <li className="show-on-mobile"><Link href="/cart">My Cart</Link></li>
-            <li className="show-on-mobile"><Link href="/orders">My Orders</Link></li>
-            <li className="show-on-mobile"><Link href="/wishlist">My Wishlist</Link></li>
-            <li className="show-on-mobile"><Link href="/profile">My Profile</Link></li>
-            <li className="show-on-mobile"><Link href="/logout">Logout</Link></li>
+            <li className={`show-on-mobile ${pathname === "/cart" ? "active" : ""}`}>
+              <Link href="/cart">My Cart</Link>
+            </li>
+            <li className={`show-on-mobile ${pathname === "/orders" ? "active" : ""}`}>
+              <Link href="/orders">My Orders</Link>
+            </li>
+            <li className={`show-on-mobile ${pathname === "/wishlist" ? "active" : ""}`}>
+              <Link href="/wishlist">My Wishlist</Link>
+            </li>
+            <li className={`show-on-mobile ${pathname === "/profile" ? "active" : ""}`}>
+              <Link href="/profile">My Profile</Link>
+            </li>
+            <li className="show-on-mobile">
+              <Link href="/logout">Logout</Link>
+            </li>
           </ul>
         </StyledNavbarContainer>
 
@@ -106,7 +126,7 @@ const Topbar = () => {
         <StyledRightSection>
           {/* cart */}
           <Link href="/cart">
-            <StyledCartButton>
+            <StyledCartButton className={pathname === "/cart" ? "active" : ""}>
               <HiOutlineShoppingCart className="cart-icon" />
               {cartCount > 0 && (
                 <span className="cart-badge">{cartCount}</span>
@@ -118,30 +138,40 @@ const Topbar = () => {
           <StyledProfileContainer ref={profileRef}>
             <StyledUserProfile>
               <HiOutlineUser
-                className="profile-icon"
+                className={`profile-icon ${pathname === "/profile" ? "active" : ""}`}
                 onClick={() => setIsProfileToggle(!isProfileToggle)}
               />
               <StyledProfileMenu className={`${isProfileToggle ? "active" : ""}`}>
-                <StyledProfileOption>
-                  <HiOutlineUser className="profile-option-icon" />
-                  <span>My Profile</span>
-                </StyledProfileOption>
-                <StyledProfileOption>
-                  <HiOutlineShoppingCart className="profile-option-icon" />
-                  <span>My Cart</span>
-                </StyledProfileOption>
-                <StyledProfileOption>
-                  <HiOutlineClipboard className="profile-option-icon" />
-                  <span>My Orders</span>
-                </StyledProfileOption>
-                <StyledProfileOption>
-                  <HiOutlineHeart className="profile-option-icon" />
-                  <span>My Wishlist</span>
-                </StyledProfileOption>
-                <StyledProfileOption className="logout">
-                  <IoMdLogOut className="profile-option-icon" />
-                  <span>Logout</span>
-                </StyledProfileOption>
+                <Link href="/profile" style={{ textDecoration: 'none' }}>
+                  <StyledProfileOption className={pathname === "/profile" ? "active" : ""}>
+                    <HiOutlineUser className="profile-option-icon" />
+                    <span>My Profile</span>
+                  </StyledProfileOption>
+                </Link>
+                <Link href="/cart" style={{ textDecoration: 'none' }}>
+                  <StyledProfileOption className={pathname === "/cart" ? "active" : ""}>
+                    <HiOutlineShoppingCart className="profile-option-icon" />
+                    <span>My Cart</span>
+                  </StyledProfileOption>
+                </Link>
+                <Link href="/orders" style={{ textDecoration: 'none' }}>
+                  <StyledProfileOption className={pathname === "/orders" ? "active" : ""}>
+                    <HiOutlineClipboard className="profile-option-icon" />
+                    <span>My Orders</span>
+                  </StyledProfileOption>
+                </Link>
+                <Link href="/wishlist" style={{ textDecoration: 'none' }}>
+                  <StyledProfileOption className={pathname === "/wishlist" ? "active" : ""}>
+                    <HiOutlineHeart className="profile-option-icon" />
+                    <span>My Wishlist</span>
+                  </StyledProfileOption>
+                </Link>
+                <Link href="/logout" style={{ textDecoration: 'none' }}>
+                  <StyledProfileOption className="logout">
+                    <IoMdLogOut className="profile-option-icon" />
+                    <span>Logout</span>
+                  </StyledProfileOption>
+                </Link>
               </StyledProfileMenu>
             </StyledUserProfile>
           </StyledProfileContainer>
