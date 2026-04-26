@@ -1,18 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import data from "../../../public/fake-json/data.json";
 import {
   StyledFeaturedProductContainer,
   StyledFeaturedProductHeading,
   StyledFeaturedProductSection,
   StyledFeatureProductCard,
+  StyledSearchFilterBar,
 } from "./featuredProducts.styled";
 import Image from "next/image";
 import { StarRating, ShoppingBag } from "../../../icons";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cartSlice";
-import { HiOutlineCheck } from "react-icons/hi2";
+import { HiOutlineCheck, HiMagnifyingGlass } from "react-icons/hi2";
 import Link from "next/link";
+
 const HeartIcon = ({ filled }: { filled: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -31,10 +33,18 @@ const HeartIcon = ({ filled }: { filled: boolean }) => (
 );
 
 const FeaturedProducts = () => {
-  const [productList, setProductList] = useState<any>([]);
+  const [activeCategory, setActiveCategory] = useState<"fruits" | "vegetables">("fruits");
+  const [searchTerm, setSearchTerm] = useState("");
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
   const [addedItemIds, setAddedItemIds] = useState<Set<string>>(new Set());
   const dispatch = useDispatch();
+
+  const filteredProducts = useMemo(() => {
+    const products = activeCategory === "fruits" ? data.fruits : data.vegetables;
+    return products.filter((p: any) => 
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [activeCategory, searchTerm]);
 
   const handleAddToCart = (product: any) => {
     dispatch(addToCart({ product, quantity: 1 }));
@@ -63,51 +73,68 @@ const FeaturedProducts = () => {
     });
   };
 
-  useEffect(() => {
-    const jsonData = [
-      {
-        title: "season's best fruits",
-        description: "fresh fruits picked at their best for flavor and quality.",
-        data: data.fruits,
-      },
-      {
-        title: "season's best vegetables",
-        description:
-          "fresh vegetables selected at their peak quality and flavor.",
-        data: data.vegetables,
-      },
-    ];
-    setProductList(jsonData);
-  }, []);
-
   return (
     <>
       <StyledFeaturedProductContainer>
-        {productList.map((item: any, i: number) => (
-          <StyledFeaturedProductSection key={i + 1}>
-            {/* Section heading */}
-            <StyledFeaturedProductHeading>
-              <div className="heading-left">
-                <div className="featured-product-title">{item?.title}</div>
-                <div className="featured-product-heading">
-                  {item?.description}
-                </div>
+        <StyledFeaturedProductSection>
+          {/* Section heading */}
+          <StyledFeaturedProductHeading>
+            <div className="heading-left">
+              <div className="featured-product-title">Shop by category</div>
+              <div className="featured-product-heading">
+                {activeCategory === "fruits" ? "Season's Best Fruits" : "Season's Best Vegetables"}
               </div>
-              <Link href="/products">
-                <button className="see-all-btn">See all</button>
-              </Link>
-            </StyledFeaturedProductHeading>
+            </div>
+            <Link href="/products">
+              <button className="see-all-btn">View all products</button>
+            </Link>
+          </StyledFeaturedProductHeading>
 
-            {/* Product cards */}
-            <div className="featured-product-row">
-              {item?.data?.map((e: any, j: number) => (
-                <StyledFeatureProductCard key={j + 1}>
+          {/* Filter and Search Bar */}
+          <StyledSearchFilterBar>
+            <div className="filter-tabs">
+              <button 
+                className={activeCategory === "fruits" ? "active" : ""} 
+                onClick={() => setActiveCategory("fruits")}
+              >
+                Fruits
+              </button>
+              <button 
+                className={activeCategory === "vegetables" ? "active" : ""} 
+                onClick={() => setActiveCategory("vegetables")}
+              >
+                Vegetables
+              </button>
+            </div>
+            <div className="search-wrapper">
+              <HiMagnifyingGlass className="search-icon" />
+              <input 
+                type="text" 
+                placeholder={`Search ${activeCategory}...`} 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </StyledSearchFilterBar>
+
+          {/* Product cards */}
+          <div className="featured-product-row">
+            {filteredProducts.map((e: any, j: number) => (
+              <StyledFeatureProductCard key={j + 1}>
+                <Link 
+                  href={`/products/${e.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
+                >
                   {/* Image area */}
                   <div className="product-image-wrap">
                     <button
                       className={`wishlist-btn${likedItems.has(String(e?.id || e?.name)) ? " liked" : ""}`}
                       aria-label="Add to wishlist"
-                      onClick={(ev) => { ev.stopPropagation(); toggleLike(String(e?.id || e?.name)); }}
+                      onClick={(ev) => { 
+                        ev.preventDefault();
+                        ev.stopPropagation(); 
+                        toggleLike(String(e?.id || e?.name)); 
+                      }}
                     >
                       <HeartIcon filled={likedItems.has(String(e?.id || e?.name))} />
                     </button>
@@ -144,7 +171,11 @@ const FeaturedProducts = () => {
                       </div>
                       <button 
                         className={`cart-btn ${addedItemIds.has(String(e?.id || e?.name)) ? "added" : ""}`} 
-                        onClick={() => handleAddToCart(e)}
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          handleAddToCart(e);
+                        }}
                       >
                         {addedItemIds.has(String(e?.id || e?.name)) ? (
                           <>
@@ -160,13 +191,15 @@ const FeaturedProducts = () => {
                       </button>
                     </div>
                   </div>
-                </StyledFeatureProductCard>
-              ))}
-            </div>
-          </StyledFeaturedProductSection>
-        ))}
+                </Link>
+              </StyledFeatureProductCard>
+            ))}
+          </div>
+        </StyledFeaturedProductSection>
       </StyledFeaturedProductContainer>
     </>
   );
 };
+
 export default FeaturedProducts;
+

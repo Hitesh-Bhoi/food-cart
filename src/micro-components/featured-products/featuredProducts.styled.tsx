@@ -114,6 +114,86 @@ export const StyledFeaturedProductHeading = styled.div`
   }
 `;
 
+export const StyledSearchFilterBar = styled.div`
+  ${FlexBox({ justify: "flex-end", align: "center" })};
+  padding: 0 16px 24px;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    
+    input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
+      background: #f8fafc;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      color: #1e293b;
+
+      &:focus {
+        outline: none;
+        border-color: var(--green);
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(25, 155, 25, 0.08);
+      }
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 18px;
+    }
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 8px;
+    border-radius: 12px;
+    
+    button {
+      padding: 8px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: transparent;
+      color: #64748b;
+
+      &.active {
+        background: #fff;
+        color: var(--green);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      &:hover:not(.active) {
+        color: #1e293b;
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+`;
+
 export const StyledFeatureProductCard = styled.div`
   ${FlexBox({ direction: "column", justify: "space-between" })};
   width: 100%;
