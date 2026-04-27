@@ -6,6 +6,8 @@ export type WishlistItem = {
   price: number;
   oldPrice?: number;
   image_url: string;
+  category?: string;
+  unit?: string;
 };
 
 interface WishlistState {
@@ -52,9 +54,15 @@ const wishlistSlice = createSlice({
     },
     setWishlistItems: (state, action: PayloadAction<WishlistItem[]>) => {
       state.wishlistItems = action.payload;
+    },
+    clearWishlist: (state) => {
+      state.wishlistItems = [];
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('wishlist', JSON.stringify([]));
+      }
     }
   }
 });
 
-export const { toggleWishlist, removeFromWishlist, setWishlistItems } = wishlistSlice.actions;
+export const { toggleWishlist, removeFromWishlist, setWishlistItems, clearWishlist } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

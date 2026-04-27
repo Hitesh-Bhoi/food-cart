@@ -76,7 +76,9 @@ const FeaturedProducts = () => {
       id: product.name,
       name: product.name,
       price: product.price,
-      image_url: product.image_url
+      image_url: product.image_url,
+      category: product.category,
+      unit: product.unit
     }));
   };
 
